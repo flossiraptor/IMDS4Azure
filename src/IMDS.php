@@ -138,7 +138,7 @@ class IMDS {
   /**
    * Initialize all services with a standard non-proxying HTTP client.
    */
-  protected function initialize() : void {
+  public function initialize() : void {
     $client = $this->getHttpClient();
 
     $this->identity = new Identity($client);

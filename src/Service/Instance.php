@@ -2,10 +2,13 @@
 
 namespace Flossiraptor\Imds4azure\Service;
 
+use Flossiraptor\Imds4azure\Exception\IMDSNotFoundException;
+use Flossiraptor\Imds4azure\Exception\InvalidResponseException;
 use Flossiraptor\Imds4azure\Metadata;
 use Flossiraptor\Imds4azure\MetadataInterface;
 use Flossiraptor\Imds4azure\Utility\HttpClientAwareTrait;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\ConnectException;
 
 /**
  * Query instance metadata from the IMDS.
@@ -77,12 +80,21 @@ class Instance implements MetadataInterface {
    * Fetch the metadata from the IMDS.
    */
   protected function doFetch() : void {
-    /** @var \Psr\Http\Message\ResponseInterface $result */
-    $result = $this
-      ->getHttpClient()
-      ->request('get', self::RESOURCE);
+    try {
+      /** @var \Psr\Http\Message\ResponseInterface $result */
+      $result = $this
+        ->getHttpClient()
+        ->request('get', self::RESOURCE);
 
-    $this->metadata = new Metadata(json_decode((string) $result->getBody()));
+      $data = json_decode((string) $result->getBody());
+      if (is_null($data)) {
+        throw new InvalidResponseException('The IMDS response did not contain valid JSON.');
+      }
+      $this->metadata = new Metadata($data);
+    }
+    catch (ConnectException $e) {
+      throw new IMDSNotFoundException('Could not connect to the IMDS.', 0, $e);
+    }
   }
 
 }

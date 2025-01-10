@@ -24,7 +24,7 @@ trait HttpClientAwareTrait {
    * @param \GuzzleHttp\ClientInterface $client
    *   A Guzzle HTTP client.
    */
-  protected function setHttpClient(ClientInterface $client) : void {
+  public function setHttpClient(ClientInterface $client) : void {
     $this->httpClient = $client;
   }
 
@@ -34,7 +34,7 @@ trait HttpClientAwareTrait {
    * @return \GuzzleHttp\ClientInterface
    *   A Guzzle HTTP client.
    */
-  protected function getHttpClient() : ClientInterface {
+  public function getHttpClient() : ClientInterface {
     if (!$this->httpClient) {
       $this->initializeHttpClient();
     }
