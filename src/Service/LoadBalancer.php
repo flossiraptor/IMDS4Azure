@@ -5,7 +5,7 @@ namespace Flossiraptor\Imds4azure\Service;
 use Flossiraptor\Imds4azure\Metadata;
 use Flossiraptor\Imds4azure\MetadataInterface;
 use Flossiraptor\Imds4azure\Utility\HttpClientAwareTrait;
-use Psr\Http\Client\ClientInterface;
+use GuzzleHttp\ClientInterface;
 
 /**
  * Query load-balancer metadata from the IMDS.
@@ -31,8 +31,8 @@ class LoadBalancer implements MetadataInterface {
   /**
    * Constructor.
    *
-   * @param \Psr\Http\Client\ClientInterface $client
-   *   A PSR-18 compliant HTTP client.
+   * @param \GuzzleHttp\ClientInterface $client
+   *   A Guzzle HTTP client.
    */
   public function __construct(ClientInterface $client) {
     $this->setHttpClient($client);

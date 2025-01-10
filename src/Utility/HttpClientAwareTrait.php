@@ -45,8 +45,8 @@ trait HttpClientAwareTrait {
    * Initialize the HTTP client with a default non-proxying client.
    */
   protected function initializeHttpClient() : void {
-    $this->client = new Client([
-      'base_uri' => IMDS::ENDPOINT,
+    $this->httpClient = new Client([
+      'base_uri' => sprintf('http://%s', IMDS::ENDPOINT),
       'allow_redirects' => FALSE,
       'headers' => [
         'Metadata' => 'true',

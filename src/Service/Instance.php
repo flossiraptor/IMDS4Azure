@@ -31,8 +31,8 @@ class Instance implements MetadataInterface {
   /**
    * Constructor.
    *
-   * @param \Psr\Http\Client\ClientInterface $client
-   *   A PSR-18 compliant HTTP client.
+   * @param \GuzzleHttp\ClientInterface $client
+   *   A Guzzle HTTP client.
    */
   public function __construct(ClientInterface $client) {
     $this->setHttpClient($client);
