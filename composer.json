@@ -1,0 +1,20 @@
+{
+    "name": "flossiraptor/imds4azure",
+    "description": "Query Azure Instance Meta-Data Services.",
+    "type": "library",
+    "license": "GPL",
+    "autoload": {
+        "psr-4": {
+            "Flossiraptor\\Imds4azure\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Marcus Deglos",
+            "email": "marcus@flossiraptor.net"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.9"
+    }
+}
