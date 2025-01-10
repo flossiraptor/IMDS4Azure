@@ -77,43 +77,12 @@ class LoadBalancer implements MetadataInterface {
    * Fetch the metadata from the IMDS.
    */
   protected function doFetch() : void {
-    $result = '{
-   "loadbalancer": {
-    "publicIpAddresses":[
-      {
-         "frontendIpAddress":"51.0.0.1",
-         "privateIpAddress":"10.1.0.4"
-      }
-   ],
-   "inboundRules":[
-      {
-         "frontendIpAddress":"50.0.0.1",
-         "protocol":"tcp",
-         "frontendPort":80,
-         "backendPort":443,
-         "privateIpAddress":"10.1.0.4"
-      },
-      {
-         "frontendIpAddress":"2603:10e1:100:2::1:1",
-         "protocol":"tcp",
-         "frontendPort":80,
-         "backendPort":443,
-         "privateIpAddress":"ace:cab:deca:deed::1"
-      }
-   ],
-   "outboundRules":[
-      {
-         "frontendIpAddress":"50.0.0.1",
-         "privateIpAddress":"10.1.0.4"
-      },
-      {
-         "frontendIpAddress":"2603:10e1:100:2::1:1",
-         "privateIpAddress":"ace:cab:deca:deed::1"
-      }
-    ]
-   }
-}';
-    $this->metadata = new Metadata(json_decode($result));
+    /** @var \Psr\Http\Message\ResponseInterface $result */
+    $result = $this
+      ->getHttpClient()
+      ->request('get', self::RESOURCE);
+
+    $this->metadata = new Metadata(json_decode((string) $result->getBody()));
   }
 
 }

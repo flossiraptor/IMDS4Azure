@@ -6,7 +6,6 @@ use Flossiraptor\Imds4azure\Service\Identity;
 use Flossiraptor\Imds4azure\Service\Instance;
 use Flossiraptor\Imds4azure\Service\LoadBalancer;
 use Flossiraptor\Imds4azure\Utility\HttpClientAwareTrait;
-use GuzzleHttp\Client;
 
 /**
  * Query the Azure IMDS.
