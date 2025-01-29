@@ -26,6 +26,9 @@ Azure library.
 
   // Get the public IP address of the load-balancer.
   $lbAddress = $imds->loadbalancer()->get('loadbalancer.publicIpAddresses.0.frontendIpAddress');
+
+  // Get an access token for the "Management" resource.
+  $token = (string) $imds->identity()->getToken('https://management.azure.com/');
 ```
 
 ## Categories
