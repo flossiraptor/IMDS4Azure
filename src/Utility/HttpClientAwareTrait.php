@@ -42,6 +42,23 @@ trait HttpClientAwareTrait {
   }
 
   /**
+   * Merge request-specific options with the defaults provided by the client.
+   *
+   * @param array $options
+   *   Options to pass to the Guzzle client.
+   *
+   * @return array
+   *   The requested options, merged with the client defaults.
+   */
+  protected function mergeDefaultOptions(array $options) : array {
+    $config = $this
+      ->getHttpClient()
+      ->getConfig();
+
+    return array_replace_recursive($config, $options);
+  }
+
+  /**
    * Initialize the HTTP client with a default non-proxying client.
    */
   protected function initializeHttpClient() : void {

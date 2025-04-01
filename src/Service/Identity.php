@@ -54,6 +54,7 @@ class Identity {
       if ($client_id) {
         $options['query']['client_id'] = $client_id;
       }
+      $options = $this->mergeDefaultOptions($options);
 
       /** @var \Psr\Http\Message\ResponseInterface $result */
       $result = $this
