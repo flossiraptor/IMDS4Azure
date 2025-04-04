@@ -73,7 +73,7 @@ trait HttpClientAwareTrait {
         'no' => '*',
       ],
       'query' => [
-        'api_version' => IMDS::API_VERSION,
+        'api-version' => IMDS::API_VERSION,
       ],
       'timeout'  => 2.0,
     ]);
