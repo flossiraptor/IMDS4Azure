@@ -84,6 +84,21 @@ class Token {
   }
 
   /**
+   * Fetch the TTL – the number of seconds that the token is valid for.
+   *
+   * @return int
+   *   The number of seconds during which this token can be used.
+   */
+  public function ttl() : int {
+    $expiry = $this
+      ->token
+      ->expires_on;
+    $ttl = $expiry - time();
+
+    return ($ttl < 1) ? 0 : $ttl;
+  }
+
+  /**
    * Fetch the token's authentication value.
    *
    * @return string

@@ -3,6 +3,7 @@
 namespace Flossiraptor\Imds4azure;
 
 use Flossiraptor\Imds4azure\Service\Identity;
+use Flossiraptor\Imds4azure\Service\IdentityCachedByApcu;
 use Flossiraptor\Imds4azure\Service\Instance;
 use Flossiraptor\Imds4azure\Service\LoadBalancer;
 use Flossiraptor\Imds4azure\Utility\HttpClientAwareTrait;
@@ -141,9 +142,12 @@ class IMDS {
   public function initialize() : void {
     $client = $this->getHttpClient();
 
-    $this->identity = new Identity($client);
     $this->instance = new Instance($client);
     $this->loadbalancer = new LoadBalancer($client);
+
+    $this->identity = (function_exists('apcu_enabled'))
+      ? new IdentityCachedByApcu($client)
+      : new Identity($client);
   }
 
 }
