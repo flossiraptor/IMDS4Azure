@@ -30,7 +30,7 @@ class Token {
     ) {
     // Establish the time when the token is ready for refresh.
     $refreshWhenRemaining = self::REFRESH_WHEN_REMAINING * $token->expires_in;
-    $this->refresh_on = $token->expires_on - $refreshWhenRemaining;
+    $this->refresh_on = floor($token->expires_on - $refreshWhenRemaining);
   }
 
   /**
